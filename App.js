@@ -13,6 +13,9 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import { CardField, useConfirmPayment, StripeProvider } from '@stripe/stripe-react-native';
 import { Divider } from 'react-native-elements';
 
+// import the environment variables
+import { QRCODE_SERVER } from '@env';
+
 // this is the shop like background to pages
 const image = require('./assets/images/shop.jpg');
 
@@ -189,8 +192,7 @@ function ListScreen({route, navigation}) {
   const [codes, setCodes] = useState([]);
   const [shoppingList, setShoppingList] = useState([]);
   const [totalCost, setTotalCost] = useState(0.00);
-  //const API_URL = 'http://192.168.0.23:3000/api';
-  const API_URL = 'https://simple-rest-api-server-production.up.railway.app/api';
+  const API_URL = `${QRCODE_SERVER}/api`;
 
   // set the codes state variable from the local storage codes
   const setCodesStore = async () => {
@@ -448,8 +450,7 @@ function PayScreen({route, navigation}) {
   const [card, setCard] = useState(null); 
   const [payment, setPayment] = useState('Cash');
   const [totalCost, setTotalCost] = useState(0.0);
-  //const API_URL = 'http://192.168.0.23:3000/api';
-  const API_URL = 'https://simple-rest-api-server-production.up.railway.app/api';
+  const API_URL = `${QRCODE_SERVER}/api`;
 
   // set totalCost from storage
   const setTotalCostStore = async () => {
@@ -579,8 +580,7 @@ function DeliverScreen({route, navigation}) {
   const [offlineFlag, setOfflineFlag] = useState(false);
   const [addressList, setAddressList] = useState([]);
   const [delivery, setDelivery] = useState('In Store');
-  //const API_URL = 'http://192.168.0.23:3000/api';
-  const API_URL = 'https://simple-rest-api-server-production.up.railway.app/api';
+  const API_URL = `${QRCODE_SERVER}/api`;
 
   const reqAddresses = async () => {
     // attempt to contact server 
@@ -831,8 +831,7 @@ function StripeScreen({route, navigation}) {
   const [name, setName] = useState('');
   const {confirmPayment, loading} = useConfirmPayment();
   const [card, setCard] = useState(null);
-  //const API_URL = 'http://192.168.0.23:3000/api';
-  const API_URL = 'https://simple-rest-api-server-production.up.railway.app/api';
+  const API_URL = `${QRCODE_SERVER}/api`;
 
   const handlePayPress = async () => {
     const response = await fetch(`${API_URL}/create-payment-intent`, {
@@ -960,8 +959,7 @@ function StripeScreen({route, navigation}) {
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  //const API_URL = 'http://192.168.0.23:3000/api';
-  const API_URL = 'https://simple-rest-api-server-production.up.railway.app/api';
+  const API_URL = `${QRCODE_SERVER}/api`;
   const [publishableKey, setPublishableKey] = useState('');
 
   const reqPublishableKey = async () => {
