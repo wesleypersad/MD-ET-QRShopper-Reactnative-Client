@@ -192,7 +192,6 @@ function ListScreen({route, navigation}) {
   const [codes, setCodes] = useState([]);
   const [shoppingList, setShoppingList] = useState([]);
   const [totalCost, setTotalCost] = useState(0.00);
-  const API_URL = `${QRCODE_SERVER}/api`;
 
   // set the codes state variable from the local storage codes
   const setCodesStore = async () => {
@@ -241,7 +240,7 @@ function ListScreen({route, navigation}) {
     };
     // attempt to get data from server
     try {
-      const response = await fetch(`${API_URL}/items`, options);
+      const response = await fetch(`${QRCODE_SERVER}/api/items`, options);
       const json = await response.json();
 
       // loop through json adding qty, total and total cost fields
@@ -450,7 +449,6 @@ function PayScreen({route, navigation}) {
   const [card, setCard] = useState(null); 
   const [payment, setPayment] = useState('Cash');
   const [totalCost, setTotalCost] = useState(0.0);
-  const API_URL = `${QRCODE_SERVER}/api`;
 
   // set totalCost from storage
   const setTotalCostStore = async () => {
@@ -468,7 +466,7 @@ function PayScreen({route, navigation}) {
   const reqCards = async () => {
     // attempt to contact server 
     try {
-      const response = await fetch(`${API_URL}/cards`);
+      const response = await fetch(`${QRCODE_SERVER}/api/cards`);
       const json = await response.json();
       setCardList(json);
       //console.log(json);
@@ -580,12 +578,11 @@ function DeliverScreen({route, navigation}) {
   const [offlineFlag, setOfflineFlag] = useState(false);
   const [addressList, setAddressList] = useState([]);
   const [delivery, setDelivery] = useState('In Store');
-  const API_URL = `${QRCODE_SERVER}/api`;
 
   const reqAddresses = async () => {
     // attempt to contact server 
     try {
-      const response = await fetch(`${API_URL}/addresses`);
+      const response = await fetch(`${QRCODE_SERVER}/api/addresses`);
       const json = await response.json();
       setAddressList(json);
       //console.log(json);
@@ -800,7 +797,7 @@ function DetailScreen({route, navigation}) {
                   <Cell>
                     <Image
                       style={{margin:50,height:250, width:250, alignSelf: 'center'}}
-                      source={{uri: route.params.item.thumbnail}}
+                      source={{uri: `${QRCODE_SERVER}${route.params.item.thumbnail}`}}
                     />                  
                   </Cell>
                 </Row>
@@ -831,10 +828,9 @@ function StripeScreen({route, navigation}) {
   const [name, setName] = useState('');
   const {confirmPayment, loading} = useConfirmPayment();
   const [card, setCard] = useState(null);
-  const API_URL = `${QRCODE_SERVER}/api`;
 
   const handlePayPress = async () => {
-    const response = await fetch(`${API_URL}/create-payment-intent`, {
+    const response = await fetch(`${QRCODE_SERVER}/api/create-payment-intent`, {
       method: 'POST',
       headers: {
         'Content-Type':'application/json'
@@ -959,13 +955,12 @@ function StripeScreen({route, navigation}) {
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const API_URL = `${QRCODE_SERVER}/api`;
   const [publishableKey, setPublishableKey] = useState('');
 
   const reqPublishableKey = async () => {
     // attempt to contact server 
     try {
-      const response = await fetch(`${API_URL}/pubkey`);
+      const response = await fetch(`${QRCODE_SERVER}/api/pubkey`);
       const json = await response.json();
       setPublishableKey(json.publishableKey);
       //console.log(json);
