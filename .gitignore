@@ -1,3 +1,4 @@
+.gitignore
 node_modules/
 .expo/
 dist/
@@ -10,6 +11,7 @@ npm-debug.*
 *.orig.*
 web-build/
 .env
+*.txt
 
 # macOS
 .DS_Store
