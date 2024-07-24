@@ -10,7 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@expo/webpack-config": "^19.0.1",
+    "@expo/webpack-config": "~19.0.1",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-native-community/netinfo": "11.1.0",
     "@react-native/assets-registry": "^0.74.84",
@@ -21,7 +21,7 @@
     "expo": "^50.0.19",
     "expo-barcode-scanner": "~12.9.3",
     "expo-status-bar": "~1.11.1",
-    "expo-storage": "^48.1.0",
+    "expo-storage": "^51.0.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.73.6",
@@ -35,7 +35,7 @@
     "react-native-web": "~0.19.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.24.0"
   },
   "private": true
 }
