@@ -6,7 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Cell, Section, TableView } from 'react-native-tableview-simple';
 import NetInfo from '@react-native-community/netinfo';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+//import { BarCodeScanner } from 'expo-barcode-scanner';
+import { CameraView, Camera } from "expo-camera";
 import { Storage } from 'expo-storage';
 import { RadioButton } from 'react-native-paper';
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -15,6 +16,7 @@ import { Divider } from 'react-native-elements';
 
 // import the environment variables
 import { QRCODE_SERVER } from '@env';
+import { CameraOrientation } from 'expo-camera/build/legacy/Camera.types';
 
 // this is the shop like background to pages
 const image = require('./assets/images/shop.jpg');
@@ -155,7 +157,7 @@ function ScanScreen({route, navigation}) {
 
   useEffect(() => {
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
   }, []);
@@ -177,8 +179,11 @@ function ScanScreen({route, navigation}) {
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+      <CameraView
+        onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
+          barcodeScannerSettings={{
+          barcodeTypes: ["qr", "pdf417"],
+        }}
         style={StyleSheet.absoluteFillObject}
       />
       {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
